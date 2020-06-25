@@ -22,7 +22,7 @@ public class TitlePresenter : MonoBehaviour
     }
 
     private void ChangeScene() {
-        var hasKey = PlayerPrefs.HasKey(UserData.USER_ID_KEY);
+        var hasKey = PlayerPrefs.HasKey(UserData.USER_HASH_KEY);
         if(!hasKey) {
             // ユーザーデータがないときの処理
             SceneLoadManager.Instance.LoadScene(Scenes.MakeUser);
@@ -34,8 +34,8 @@ public class TitlePresenter : MonoBehaviour
     }
 
     private async UniTask LoadPlayerData() {
-        var id = PlayerPrefs.GetInt(UserData.USER_ID_KEY);
-        RunTimeData.PlayerData = await AppApi.GetUserData(id);
-        SceneLoadManager.Instance.LoadScene(Scenes.Game);
+        var userHash = PlayerPrefs.GetString(UserData.USER_HASH_KEY);
+        RunTimeData.PlayerData = await AppApi.GetUserData(userHash);
+        SceneLoadManager.Instance.LoadScene(Scenes.Home);
     }
 }

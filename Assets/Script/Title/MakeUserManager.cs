@@ -25,7 +25,7 @@ public class MakeUserManager : MonoBehaviour
     }
 
     private void LoadUserData(){
-        var key = UserData.USER_ID_KEY;
+        var key = UserData.USER_HASH_KEY;
         var json = PlayerPrefs.GetString(key);
         var data = JsonUtility.FromJson<UserDataParamater>(json);
         _inputName.text = data?.Name;
@@ -44,10 +44,9 @@ public class MakeUserManager : MonoBehaviour
             Name = _inputName.text,
         };
 
-        await AppApi.CreateUserData(userData);
-        var key = GameDataManager.Instance.GameDataKey;
-        var json = JsonUtility.ToJson(userData);
-        PlayerPrefs.SetString(key,json);
+        var userHash = await AppApi.CreateUserData(userData);
+        var key = UserData.USER_HASH_KEY;
+        PlayerPrefs.SetString(key,userHash);
         PlayerPrefs.Save();
         RunTimeData.PlayerData = userData;
         SceneLoadManager.Instance.LoadScene(Scenes.Game);

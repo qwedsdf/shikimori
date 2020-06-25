@@ -7,35 +7,30 @@ public enum Scenes
 {
     Title,
     MakeUser,
+    Home,
     Game,
+    Ranking,
     Data,
 }
 
 public class SceneLoadManager : SingletonMonoBehaviour<SceneLoadManager>
 {
-    private void Start() {
+    private IReadOnlyDictionary<Scenes, string> _sceneNameDic = new Dictionary<Scenes, string>(){
+        { Scenes.Title,"Title" },
+        { Scenes.MakeUser,"MakeUser" },
+        { Scenes.Home, "Home" },
+        { Scenes.Game, "Game" },
+        { Scenes.Ranking, "Ranking" },
+        { Scenes.Data, "Data" },
+    };
+    private void Start()
+    {
         DontDestroyOnLoad(this);
     }
-    
-    public void LoadScene(Scenes scene)
+
+    public void LoadScene(Scenes scene,LoadSceneMode mode = LoadSceneMode.Single)
     {
-        switch (scene)
-        {
-            case Scenes.Title:
-                SceneManager.LoadScene("Title", LoadSceneMode.Single);
-                break;
-            
-            case Scenes.MakeUser:
-                SceneManager.LoadScene("MakeUser",LoadSceneMode.Single);
-                break;
-
-            case Scenes.Game:
-                SceneManager.LoadScene("Game",LoadSceneMode.Single);
-                break;
-
-            case Scenes.Data:
-                SceneManager.LoadScene("DataScene",LoadSceneMode.Single);
-                break;
-        }
+        var sceneName = _sceneNameDic[scene];
+        SceneManager.LoadScene(sceneName,mode);
     }
 }

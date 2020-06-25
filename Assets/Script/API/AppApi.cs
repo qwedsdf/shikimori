@@ -6,10 +6,10 @@ using UnityEngine.Networking;
 
 public class AppApi
 {
-    public static async UniTask<UserData> GetUserData(int userId){
+    public static async UniTask<UserData> GetUserData(string userHash){
         var url = "http://localhost/apiTest/GetUserDataAPI.php";
         var form = new WWWForm();
-        form.AddField("id", userId);
+        form.AddField("user_hash", userHash);
         var result = UnityWebRequest.Post(url,form);
 
         await result.SendWebRequest().ToUniTask();
