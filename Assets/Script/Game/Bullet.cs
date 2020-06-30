@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using System;
 
 public class Bullet : MonoBehaviour
 {
     private static readonly float BASE_SPEED = -5f;
     private static readonly float DEFENCE_POWER = 1000f;
     private bool isCut = false;
+    private Subject<bool> _settlementSubject = new Subject<bool>();
+    public IObservable<bool> OnSettlement => _settlementSubject.AsObservable();
     
 
     [SerializeField]
@@ -49,5 +53,7 @@ public class Bullet : MonoBehaviour
 
 
         rb.AddForceAtPosition(force.normalized * DEFENCE_POWER, tapPos);
+
+        _settlementSubject.OnNext(true);
     }
 }

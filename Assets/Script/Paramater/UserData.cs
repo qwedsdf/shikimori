@@ -8,4 +8,5 @@ public class UserData
     public int WinCount;
     public int LoseCount;
     public string Name;
+    public int MaxClearCount;
 }
