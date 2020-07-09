@@ -23,6 +23,15 @@ public class SceneLoadManager : SingletonMonoBehaviour<SceneLoadManager>
         { Scenes.Ranking, "Ranking" },
         { Scenes.Data, "Data" },
     };
+
+    private IReadOnlyDictionary<Scenes, string> _sceneBGMDic = new Dictionary<Scenes, string>(){
+        { Scenes.Title,"Title" },
+        { Scenes.MakeUser,"Title" },
+        { Scenes.Home,"Home" },
+        { Scenes.Game,"Game" },
+        { Scenes.Ranking,"Title" },
+    };
+
     private void Start()
     {
         DontDestroyOnLoad(this);
@@ -31,6 +40,7 @@ public class SceneLoadManager : SingletonMonoBehaviour<SceneLoadManager>
     public void LoadScene(Scenes scene,LoadSceneMode mode = LoadSceneMode.Single)
     {
         var sceneName = _sceneNameDic[scene];
+        SoundManager.Instance.ChangeBGM(_sceneBGMDic[scene]);
         SceneManager.LoadScene(sceneName,mode);
     }
 }

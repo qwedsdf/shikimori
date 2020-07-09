@@ -9,4 +9,5 @@ public class UserData
     public int LoseCount;
     public string Name;
     public int MaxClearCount;
+    public int UserId;
 }

@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 
 public class RankingUserDataParameter{
+    public int UserId;
     public int Rank;
     public string Name;
     public int Value;
